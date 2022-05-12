@@ -43,7 +43,7 @@ while (true){ //Empieza la adivinación
             guess = prompt("¿Qué número entre " + lower_bound + " y " + upper_bound + "? Te quedan " + tries + " intentos. Escribe \"esc\" para salir"); //si no es el último intento, se habla de los intentos en plural
         }
         if (guess == "esc"){
-            alert("El número era " + n + ".") // si te rindes, te dice cuál era el número
+            alert("Te rendiste. El número era " + n + ".") // si te rindes, te dice cuál era el número
             break;
         } else if (guess != parseInt(guess)) {
         alert("Ingresa un número válido."); //No acepta si es inválido, no quita intentos
