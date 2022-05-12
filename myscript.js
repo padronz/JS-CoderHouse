@@ -28,7 +28,7 @@ let n = Math.floor(Math.random() * (upper_bound - lower_bound)) + lower_bound; /
 let tries = prompt("¿Cuántos intentos quieres?"); //Pidiendo y limpiando el número de intentos
 while (true){
 if (tries != parseInt(tries)) {
-    tries = prompt("Ingresa un número válido.");
+    tries = prompt("Ingresa un número entero válido.");
 } else if (tries <= 0) {
     tries = prompt("Ingresa un número positivo.");
 } else {
