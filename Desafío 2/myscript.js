@@ -1,72 +1,64 @@
-alert("¡Haz el arreglo que quieras!");
+alert("¡Adivina el número!")
 
-//Hago el mensaje iterativamente para que el código se vea más bonito
-let myArray = [];
-let text = "";
-text += "Escribe \"show\" para mostrar arreglo";
-text += "\nEscribe \"in\" para introducir elemento";
-text += "\nEscribe \"del\" para borrar elemento";
-text += "\nEscribe \"rnd\" para mostrar un elemento aleatorio";
-text += "\nPresiona \"Cancelar\" para salir.";
-
-//Llamando la función que declararé después
-getInput(text);
-
-//Haciendo cada caso, terminando de forma recursiva para que siga el ciclo dentro del switch. Hay que poner "return"; si no, no terminan los ciclos correctamente. 
-function getInput(text) {
-    switch (prompt(text)) {
-        case "show":
-            //Si el array tiene length 0, está vacío. Muestra error
-            if (myArray.length == 0) {
-                alert("Arreglo vacío.");
-                //Si está todo bien, carga iterativamente el notif con un forEach y luego lo muestra
-            } else {
-                let notif = "";
-                myArray.forEach((el, index) => { notif += "\n" + index + ". " + el });
-                alert(notif);
-            }
-            return getInput(text);
-        case "in":
-            //Push sencillo. Pero si no introduce nada, te notifica
-            let newItem = prompt("Introducir elemento.");
-            if (newItem != null) {
-                myArray.push(newItem);
-                alert("Agregado elemento " + (myArray.length - 1) + ". " + newItem);
-            }
-            return getInput(text);
-        case "del":
-            //borrar con splice, asegurándose de poner el segundo argumento quantity como 1, para no borrar más de un elemento
-            if (myArray.length == 0) {
-                alert("Arreglo vacío.");
-            } else {
-                let index = prompt("¿Cuál es el indice del elemento que quieres borrar?");
-                if (index != null)
-                    //Si el índice no es válido, borrar el elemento
-                    if (myArray[index] != undefined) {
-                        let aux = myArray[index];
-                        myArray.splice(index, 1);
-                        alert("Has borrado el elemento " + index + ". " + aux);
-                    } else {
-                        alert("Ingresa un índice válido.");
-                    }
-            }
-            return getInput(text);
-        case "rnd":
-            //Randomizer. rndx significa random index
-            if (myArray.length > 0) {
-                let rndx = Math.floor(Math.random() * myArray.length);
-                alert("Aleatorio: " + rndx + ". " + myArray[rndx]);
-            } else {
-                alert("Arreglo vacío.");
-            }
-            return getInput(text);
-        case null:
-            //Chao! con break
-            alert("¡Adiós!");
-            break;
-        default:
-            //Si no ingresa nada o es inválido, mensaje de error
-            alert("Ingresa una opción válida.")
-            return getInput(text);
+function CleanInt(str) {    // Para conseguir un número entero limpio, usamos una recursive 
+    let n = prompt(str);
+    if (n == parseInt(n)){
+        return parseInt(n);
+    } else {
+        alert("Ingrese número entero válido");
+        return CleanInt(str);   //Recursive. Va a fallar hasta que por fin pongan un número válido
     }
 }
+
+let lower_bound = CleanInt("Ingresar cota menor.");
+alert("La cota menor es " + lower_bound + ".");
+
+let upper_bound = CleanInt("Ingresar cota mayor.");
+while (upper_bound <= lower_bound){  //Asegurándose de que la cota mayor sea mayor. No es recursive sino un loop simple
+alert("La cota mayor no puede ser menor que la cota menor.");
+upper_bound = CleanInt("Ingresa cota mayor.");
+}
+alert("La cota mayor es " + upper_bound + ".");
+
+
+let n = Math.floor(Math.random() * (upper_bound - lower_bound)) + lower_bound; //Calculando el número a adivinar con un random
+
+let tries = CleanInt("¿Cuántos intentos quieres?");
+while (tries <= 0){ //Asegurándose de que sea un número positivo con un loop
+    alert("Ingresa un número entero positivo.");
+    tries = CleanInt("¿Cuántos intentos quieres?")
+}
+
+while (tries > 0) { //Empieza la adivinación. No necesito keys, basta usar los 'tries'
+        
+        if (tries == 1) {
+            guess = prompt("¿Qué número entre " + lower_bound + " y " + upper_bound + "? ¡Último intento! Escribe \"esc\" para salir"); //último intento
+        }else{
+            guess = prompt("¿Qué número entre " + lower_bound + " y " + upper_bound + "? Te quedan " + tries + " intentos. Escribe \"esc\" para salir"); //si no es el último intento, se habla de los intentos en plural
+        }
+
+        if (guess == "esc"){
+            alert("Te rendiste. El número era " + n + ".") // si te rindes, te dice cuál era el número
+            tries = 0;
+       
+        } else if (guess != parseInt(guess)) {
+            alert("Ingresa un número entero válido."); //No acepta si es inválido, no quita intentos
+        }else if ((guess > upper_bound) || (guess < lower_bound)){   //No acepta si está fuera del rango, no quita intentos
+            alert("Ingresa un número dentro del rango.");
+        
+        } else if (guess != n){  //si es válido pero se equivoca, bajan los intentos
+            tries -= 1;
+            if (tries > 0){
+                alert("¡Número equivocado!");
+            }else{
+                alert("¡Perdiste! el número era " + n + "."); //si llega a cero la cantidad de intentos, chao
+                tries = 0;
+            }
+        
+        } else { //última posibilidad es que haya acertado
+            alert("¡Ganaste! El número era " + n + ".");
+            tries = 0
+    }
+}
+
+//Me deshice de los break, pero tampoco tuve que usar keys. Usé recursive, loop y tries
