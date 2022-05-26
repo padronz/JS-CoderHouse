@@ -1,3 +1,4 @@
+//Clase simple de bicis
 class Bici {
     constructor(modelo,marca,precio){
         this.modelo = modelo;
