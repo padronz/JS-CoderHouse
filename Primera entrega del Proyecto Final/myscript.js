@@ -8,25 +8,29 @@ let intromsg = "Indique lo que desea hacer:\n1) Cargar nueva bici\n2) Eliminar b
 //Función menú que será llamada varias veces
 menu(intromsg);
 
-//Función switch recursiva. Si obtiene un null, es decir "cancelar", termina en break
+//Opciones de navegación. Si obtiene un null, es decir "cancelar", termina en break
 function menu(intromsg) {
-    let option = prompt(intromsg);
-    switch (option) {
-        case "1":
-            enterBike();
-            return menu(intromsg);
-        case "2":
-            deleteBike();
-            return menu(intromsg);
-        case "3":
-            showBikes();
-            return menu(intromsg);
-        case null:
-            alert("¡Chao!");
-            break;
-        default:
-            alert("Ingresa opción válida")
-            return menu(intromsg);
+    let key = false;
+    while (key == false) {
+        let option = prompt(intromsg);
+        switch (option) {
+            case "1":
+                enterBike();
+                break;
+            case "2":
+                deleteBike();
+                break;
+            case "3":
+                showBikes();
+                break;
+            case null:
+                alert("¡Chao!");
+                key = true;
+                break;
+            default:
+                alert("Ingresa opción válida")
+                break;
+        }
     }
 }
 
