@@ -39,7 +39,9 @@ function getInput(text) {
             if (myArray.length == 0) {
                 alert("Arreglo vacío.");
             } else {
-                let index = prompt("¿Cuál es el indice del elemento que quieres borrar?");
+		let textdel = "¿Cuál es el indice del elemento que quieres borrar?"
+		myArray.forEach((el, index) => { textdel += "\n" + index + ". " + el });
+                let index = prompt(textdel);
                 if (index != null)
                     //Si el índice no es válido, borrar el elemento
                     if (myArray[index] != undefined) {
