@@ -1,9 +1,11 @@
+//En este desafío agregué una sola función al final para modificar el HTML. También hice una pequeña mejora, en vez de escribir las propiedades de la bici a cada rato, simplemente uso el método show()
+
 alert("¡Bienvenido a mi tienda de bicis!");
 
 //Declarando lo básico y escribiendo el mensaje del prompt que se va a repetir varias veces
 let bikeArray = [];
 let id_count = 1;
-let intromsg = "Indique lo que desea hacer:\n1) Cargar nueva bici\n2) Eliminar bici\n3) Mostrar bicis en stock\nPresiona \"Cancelar\" para salir";
+let intromsg = "Indique lo que desea hacer:\n1) Cargar nueva bici\n2) Eliminar bici\n3) Mostrar bicis en stock\nPresiona \"Cancelar\" para salir Y MOSTRAR LISTA DE BICIS";
 
 //Función menú que será llamada varias veces
 menu(intromsg);
@@ -24,11 +26,11 @@ function menu(intromsg) {
                 showBikes();
                 break;
             case null:
-                alert("¡Chao!");
                 key = true;
+                writeBikeList(); //Reemplazada la despedida con la nueva función descrita abajo
                 break;
             default:
-                alert("Ingresa opción válida")
+                alert("Ingresa opción válida");
                 break;
         }
     }
@@ -46,7 +48,7 @@ function enterBike() {
     bike.id = id_count;
     id_count++;
     bikeArray.push(bike);
-    alert("Agregado: " + "\n" + bike.id + ". " + bike.marca + " " + bike.modelo + ": $" + bike.precio);
+    alert(bike.show()); //PEQUEÑA MEJORA:  utilizando el método show de las bicis
 }
 
 //Si no hay nada en el array, no muestra nada
@@ -55,7 +57,7 @@ function deleteBike() {
         alert("No hay bicis para borrar");
     } else {
         let msg = "Cuál es el ID de la bici que quieres borrar?";
-        bikeArray.forEach((bike) => msg += "\n" + bike.id + ". " + bike.marca + " " + bike.modelo + ": $" + bike.precio);
+        bikeArray.forEach((bike) => msg += "\n" + bike.show());
         let selectDelete = prompt(msg);
         //Esto para evitar hacerle un trim a un valor null. Si es null, se va con un return
         if (selectDelete == null) {
@@ -69,7 +71,7 @@ function deleteBike() {
             alert("Debes ingresar un ID válido");
             return deleteBike();
         } else {
-            alert("Se ha borrado la bici:\n" + bikeArray[found].id + ". " + bikeArray[found].marca + " " + bikeArray[found].modelo + ": $" + bikeArray[found].precio);
+            alert("Se ha borrado la bici:\n" + bikeArray[found].show()); //PEQUEÑA MEJORA:  utilizando el método show de las bicis
             bikeArray.splice(found, 1);
         }
     }
@@ -81,7 +83,7 @@ function showBikes() {
         alert("No hay bicis para mostrar");
     } else {
         let msg = "Bicicletas en stock:"
-        bikeArray.forEach((bike) => msg += "\n" + bike.id + ". " + bike.marca + " " + bike.modelo + ": $" + bike.precio);
+        bikeArray.forEach((bike) => msg += "\n" + bike.show()); //PEQUEÑA MEJORA:  utilizando el método show de las bicis
         alert(msg);
     }
 }
@@ -107,4 +109,22 @@ function getCleanInput(prop, type) {
     } else {
         return input;
     }
+}
+
+
+function writeBikeList() { //Única función agregada en este desafío, escribir la lista de bicis
+    let paragraph = document.getElementsByTagName("p")[1];
+    paragraph.style.fontSize = '150%'; //en grande para que se vea
+    let list = document.createElement("ul");
+    if (bikeArray.length == 0) {
+        paragraph.innerHTML = "No hay bicis para mostrar.";
+    } else {
+        paragraph.innerHTML = "Lista de bicis:"
+        bikeArray.forEach((bike) => {
+            let listItem = document.createElement("li");
+            listItem.innerHTML = bike.show();
+            list.appendChild(listItem);
+        })
+    }
+    document.getElementsByTagName("p")[1].appendChild(list); //busca el segundo item que sea tag p, y luego append
 }

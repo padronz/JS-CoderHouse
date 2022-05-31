@@ -1,13 +1,13 @@
 //Clase simple de bicis
 class Bici {
-    constructor(modelo,marca,precio){
-        this.modelo = modelo;
+    constructor(marca,modelo,precio){
         this.marca = marca;
+        this.modelo = modelo;
         this.precio = precio
         this.id = -1
     }
     show(){
-        return (this.id + ". " + this.marca + " " + this.modelo + ": " + "$");
+        return (this.id + ". " + this.marca + " " + this.modelo + ": " + "$" + this.precio);
     }
     set_id(n){
         this.id = n;
