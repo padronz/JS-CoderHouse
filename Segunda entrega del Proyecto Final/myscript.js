@@ -1,8 +1,6 @@
-//Condiciones iniciales
 let bikeArray = [];
-let id_count = 1;
+let bikeCount = 0
 
-//Poniendo los event listener. Fijarse que el form2 es un botón, porque si no pisaría con el submit de form
 let form1 = document.getElementById("bikeform");
 form1.addEventListener("submit", enterBike);
 let form2 = document.getElementById("deleteAll");
@@ -10,6 +8,7 @@ form2.addEventListener("click", deleteAllBikes);
 let form3 = document.getElementById("selectdelete");
 form3.addEventListener("submit", deleteBike);
 
+loadStorage();
 
 function enterBike(e) {
     e.preventDefault();
@@ -17,10 +16,10 @@ function enterBike(e) {
     let marca = getCleanInput(form.children[1].value, "marca", "string");
     let modelo = getCleanInput(form.children[3].value, "modelo", "string");
     let precio = getCleanInput(form.children[5].value, "precio", "number");
-    if (marca == null || modelo == null || precio == null) { return };  //si alguno de estos inputs falla, cada uno dará una notificación, y al final en esta línea dará return vacío, es decir no se agrega nada al array
-    bike = new Bici(marca, modelo, precio);
-    bike.set_id(id_count);
-    id_count++;
+    if (marca == null || modelo == null || precio == null) { return };
+    bike = new Bici(marca,modelo,precio);
+    bikeCount++;
+    bike.id = bikeCount;
     bikeArray.push(bike);
     writeBikeList();
 }
@@ -31,7 +30,7 @@ function deleteBike(e) {
     let selectDelete = e.target.children[1].value.trim();
     let found = bikeArray.findIndex((bike) => bike.id == selectDelete);
     if (found == -1) {
-        alert("Debes ingresar un ID válido para borrar"); //Solo arroja error si el ID no es válido
+        alert("Debes ingresar un ID válido para borrar");
     } else {
         bikeArray.splice(found, 1);
         writeBikeList();
@@ -40,45 +39,44 @@ function deleteBike(e) {
 
 function deleteAllBikes() {
     bikeArray = [];
+    bikeCount = 0;
     writeBikeList();
 }
 
-function getCleanInput(input, prop, type) {  //Adaptado desde el desafío anterior. Parece que me quedaré con esta función hasta la entrega final
-    if (input == null) {
-        return;
-    } else {
-        input.trim();
-    }
-    condition = new Boolean
-    if (type == "string") {
-        condition = (input)
-    } else if (type == "number") {
-        condition = (input == parseFloat(input));
-        input = parseFloat(input);
-    }
-    if (!condition) {
-        alert("Debes ingresar valor válido de " + prop);
-        return;
-    } else {
-        return input;
-    }
-}
-
-//Esta función se referencia bastante por otras funciones
 function writeBikeList() {
-    for (const form of document.getElementsByTagName("form")) { form.reset() }   //Lo primero es reset todos los forms con un for of
-    let paragraph = document.getElementsByTagName("ul")[0];   //El único ul en el html
-    paragraph.textContent = ''; //Limpiando el ul
-    paragraph.innerHTML = "Lista de bicis:"; //reseteando el título del ul
+    for (const form of document.getElementsByTagName("form")) { form.reset() }
+    let paragraph = document.getElementsByTagName("ul")[0];
+    paragraph.textContent = '';
+    paragraph.innerHTML = "Lista de bicis:";
     if (bikeArray.length == 0) {
         let msg = document.createElement("li");
-        msg.innerHTML = "(No hay bicicletas para mostrar)";  //Mensajito si no hay bicis
+        msg.innerHTML = "(No hay bicicletas para mostrar)";
         paragraph.appendChild(msg);
     } else {
-        bikeArray.forEach((bike) => {   //El viejo forEach de las bicis
+        bikeArray.forEach((bike) => {
             let listItem = document.createElement("li");
             listItem.innerHTML = bike.show();
             paragraph.appendChild(listItem);
         })
     }
+    //Incluido aquí para que cada vez que se escriba la lista de bicis, se guarde en el Storage
+    saveStorage();
+}
+
+//Función nueva. Conseguir la lista de bicis en el storage. Recuperar la cuenta de bicis
+function loadStorage() {
+    const savedBikes = JSON.parse(localStorage.getItem("savedBikes"));
+    for (const bike of savedBikes){
+        bikeArray.push(new Bici(bike.marca, bike.modelo, bike.precio, bike.id));
+    }
+    if (localStorage.getItem("bikeCount")){
+        bikeCount = parseInt(localStorage.getItem("bikeCount"));
+    }
+    writeBikeList();
+}
+
+//Guardar
+function saveStorage() {
+    localStorage.setItem("savedBikes",JSON.stringify(bikeArray));
+    localStorage.setItem("bikeCount",bikeCount)
 }
