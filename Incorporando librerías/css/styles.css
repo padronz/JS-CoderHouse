@@ -1,0 +1,46 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color:rgb(245, 245, 230)
+}
+.main-logo {
+ height: 10em;
+}
+h1 {
+    font-size: 3em;
+}
+.main-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+header nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}
+nav ul li {
+    border: 2px solid black;
+    padding: 10px 50px 10px 50px;
+}
+h2 {
+    text-align: center;
+    margin-top: 50px;
+}
+.main-page {
+    margin-top: 50px
+}
+.main-page > div {
+    display: flex;
+}
+
+form {
+	padding: 1em;
+}
+
+footer {
+    text-align: center;
+    margin-top: 5em;
+}
+
+
+
