@@ -94,14 +94,14 @@ function saveStorage() {
 
 
 
-
+//Función asincrónica
 async function loadJSON() {
-    const resp = await fetch('/resources/bikes.json');
+    const resp = await fetch('/resources/bikes.json'); //archivo precreado
     const data = await resp.json();
     data.forEach((bike) => {
-        bikeCount++
-        bikeArray.push(new Bici(bike.marca, bike.modelo, bike.precio, bikeCount));
+        bikeCount++ //para no interferir con la numeración, sigo trabajando con bikeCount
+        bikeArray.push(new Bici(bike.marca, bike.modelo, bike.precio, bikeCount)); //se pushea un a new Bici
     })
     writeBikeList();
-    myToastify("Bicicletas cargadas del archivo JSON");
+    myToastify("Bicicletas cargadas del archivo JSON"); //notificación
 }

@@ -22,6 +22,8 @@ function getCleanInput(input, prop, type) {
     }
 }
 
+
+//Se pasa esta función a la lista de las que usaré a menudo
 function myToastify(alert) {
     Toastify({
         text: alert,
