@@ -8,7 +8,7 @@ form2.addEventListener("click", deleteAllBikes);
 let form3 = document.getElementById("selectdelete");
 form3.addEventListener("submit", deleteBike);
 let form4 = document.getElementById("loadJSON");
-form4.addEventListener("submit",loadJSON);
+form4.addEventListener("click", loadJSON);
 
 loadStorage();
 
@@ -92,28 +92,16 @@ function saveStorage() {
 }
 
 
-/*
-Para no repetir la función de Toastify a cada rato, creé esta función.
-Todas las notificaciones tendrán en mismo color, duración, etc, porque son solo alertas de console.error
-*/
-function myToastify(alert) {
-    Toastify({
-        text: alert,
-        duration: 2000,
-        gravity: 'top',
-        position: 'right',
-        style: {
-            background: "linear-gradient(to right, #ff0000, #A020F0)",
-            fontFamily: "Arial, Sans Serif",
-            fontSize: '.9em',
-        }
-    }).showToast();
-}
+
 
 
 async function loadJSON() {
-const resp = await fetch('resources/bikes.json');
-const data = await resp.json();
-bikeArray.concat(data);
-writeBikeList();
+    const resp = await fetch('/resources/bikes.json');
+    const data = await resp.json();
+    data.forEach((bike) => {
+        bikeCount++
+        bikeArray.push(new Bici(bike.marca, bike.modelo, bike.precio, bikeCount));
+    })
+    writeBikeList();
+    myToastify("Bicicletas cargadas del archivo JSON");
 }

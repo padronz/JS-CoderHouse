@@ -21,3 +21,17 @@ function getCleanInput(input, prop, type) {
         return input;
     }
 }
+
+function myToastify(alert) {
+    Toastify({
+        text: alert,
+        duration: 2000,
+        gravity: 'top',
+        position: 'right',
+        style: {
+            background: "linear-gradient(to right, #ff0000, #A020F0)",
+            fontFamily: "Arial, Sans Serif",
+            fontSize: '.9em',
+        }
+    }).showToast();
+}
