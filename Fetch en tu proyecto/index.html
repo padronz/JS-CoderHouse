@@ -13,9 +13,9 @@
 
 <body>
     <header>
-        <h1>Incorporando librerías</h1>
+        <h1>Fetch en tu proyecto</h1>
     </header>
-    <h2>Simulador de tienda de bicis con Toastify.</h2>
+    <h2>Simulador de tienda de bicis con Fetch.</h2>
     <div class="inputform">
         <form id="bikeform">
             <label for="marca">Marca:</label>
@@ -24,8 +24,10 @@
             <input type="text" id="modelo">
             <label for="precio">Precio:</label>
             <input type="number" id="precio"">
-            <input type=" submit" id="enterBike" value="Agregar bici">
+            <input type="submit" id="enterBike" value="Agregar bici">
             <button id="deleteAll" type="button">Borrar todas las bicis</button>
+            <br>
+            <button id="loadJSON" type="button">Cargar lista predeterminada</button>
         </form>
         <div>
             <form id="selectdelete">
@@ -35,18 +37,9 @@
             </form>
         </div>
         <h3>Lista de bicicletas:</h3>
-        <table>
-            <tr>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Precio</th>
-            </tr>
-            <tr>
-                <td>Marca</td>
-                <td>Modelo</td>
-                <td>Precio</td>
-            </tr>
-        </table>
+        <ul>Lista de bicicletas:
+            <li>(No hay bicicletas para mostrar)</li>
+        </ul>
         <footer>Ricardo Padrón</footer>
 </body>
 <script src="scripts/classes.js"></script>
