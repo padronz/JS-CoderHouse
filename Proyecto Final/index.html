@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+</head>
+
+<body>
+    <header>
+        <h1>Fetch en tu proyecto</h1>
+    </header>
+    <h2>Simulador de tienda de bicis con Fetch.</h2>
+    <div class="inputform">
+        <form id="bikeform">
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca">
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio"">
+            <input type="submit" id="enterBike" value="Agregar bici">
+            <button id="deleteAll" type="button">Borrar todas las bicis</button>
+            <br>
+            <button id="loadJSON" type="button">Cargar lista predeterminada</button> <!-- Botón nuevo -->
+        </form>
+        <div>
+            <form id="selectdelete">
+                <label for="selectdelete">ID de bicicleta a borrar:</label>
+                <input type="number" id="selectdelete">
+                <input type="submit" value="Borrar">
+            </form>
+        </div>
+        <h3>Lista de bicicletas:</h3>
+        <ul>Lista de bicicletas:
+            <li>(No hay bicicletas para mostrar)</li>
+        </ul>
+        <footer>Ricardo Padrón</footer>
+</body>
+<script src="scripts/classes.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="scripts/my_library.js"></script>
+<script src="scripts/myscript.js"></script>
+
+</html>
